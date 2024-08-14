@@ -46,7 +46,7 @@ from fact_sales_monthly
 
 select 
 p.segment,
-sum(s.sold_quantity) as product_count
+count(distinct(s.product_code)) as product_count
 from dim_product p
 join fact_sales_monthly s
 on s.product_code=p.product_code
