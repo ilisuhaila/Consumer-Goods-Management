@@ -57,16 +57,21 @@ order by product_count desc
 -- output contains these fields, segment product_count_2020 product_count_2021 difference
 
 select 
-p.segment,
-count(distinct case when s.fiscal_year = 2020 then s.product_code end) as unique_products_2020,
-count(distinct case when s.fiscal_year = 2021 then s.product_code end) as unique_products_2021,
-((count(distinct case when s.fiscal_year = 2021 then s.product_code end)) - (count(distinct case when s.fiscal_year = 2020 then s.product_code end)))
-/ (count(distinct case when s.fiscal_year = 2020 then s.product_code end)) * 100 as percentage_chg
-from fact_sales_monthly s
-join dim_product p
-on s.product_code = p.product_code
-group by segment
-order by percentage_chg desc ;
+	p.segment,
+	count(distinct case when s.fiscal_year = 2020 then s.product_code end) as product_count_2020,
+	count(distinct case when s.fiscal_year = 2021 then s.product_code end) as product_count_2021,
+	((count(distinct case when s.fiscal_year = 2021 then s.product_code end)) - 
+    (count(distinct case when s.fiscal_year = 2020 then s.product_code end))) as difference
+from 
+	fact_sales_monthly s
+join 
+	dim_product p
+on 
+	s.product_code = p.product_code
+group by 
+	segment
+order by 
+	difference desc ;
 
 -- Get the products that have the highest and lowest manufacturing costs. The final 
 -- output should contain these fields, product_code product manufacturing_cost
