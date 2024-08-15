@@ -114,8 +114,9 @@ where c.customer = 'Atliq Exclusive'
 group by Month, Year
 order by Year, Month;
 
--- In which quarter of 2020, got the maximum total_sold_quantity? The final output contains 
--- these fields sorted by the total_sold_quantity : Quarter, total_sold_quantity 
+-- Please identify the quarter in 2020 with the highest total sold quantity. 
+-- The final output should include the fields Quarter and Total_Sold_Quantity, 
+-- sorted in descending order by total sold quantity
 
 select 
 quarter(date) as Quarter,
