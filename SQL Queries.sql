@@ -121,7 +121,7 @@ select
 quarter(date) as Quarter,
 sum(sold_quantity) as Total_Sold_Quantity
 from fact_sales_monthly
-where fiscal_year = 2020
+where year(date) = 2020
 group by quarter
 order by Total_Sold_Quantity desc;
 
