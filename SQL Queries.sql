@@ -154,10 +154,9 @@ order by gross_sales_mln desc;
 with ProductSales as (
 	select 
 		p.division, p.product_code, p.product,
-    sum(s.sold_quantity) as total_sold_quantity,
-    row_number() over (partition by p.division 
-      order by sum(s.sold_quantity) desc) as rank_order
-  from 
+        sum(s.sold_quantity) as total_sold_quantity,
+        row_number() over (partition by division order by sum(s.sold_quantity) desc) as rn
+    from 
 		dim_product p
 	join fact_sales_monthly s
     on p.product_code = s.product_code
@@ -165,11 +164,11 @@ with ProductSales as (
     group by p.division, p.product_code, p.product
 )
 select
-	division, product_code, product, total_sold_quantity, rank_order
+	division, product_code, product, total_sold_quantity
 from
 	ProductSales
 where
-	rank_order <=3
-order by
-	division, rank_order
+	rn <= 3
+group by 
+	division, product_code, product
 
