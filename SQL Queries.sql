@@ -1,4 +1,4 @@
--- [MySQL] Consumer Goods Management
+-- [MySQL] Optimizing Manufacturing Efficiency
 
 -- Generate a yearly report for 'croma' customer where the output contains fiscal_year and yearly_gross_sales fields. 
 -- Make sure that yearly_gross_sales are in millions.
