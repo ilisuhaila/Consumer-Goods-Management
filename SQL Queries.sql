@@ -171,34 +171,3 @@ where
 	rn <= 3
 group by 
 	division, product_code, product
-
-
-
-
-select 'Brand Perception' as Category, Brand_perception as Subcategory,
-		round((count(distinct Respondent_ID)) /
-        (select count(distinct Respondent_ID) from fact_survey_responses)
-        * 100, 2) as Respondent_Percentage
-from fact_survey_responses
-group by Brand_perception
-
-UNION ALL
-
-select 'Taste Experience' as Category, Taste_experience as Subcategory,
-		round(count(distinct Respondent_ID) / 
-        (select count(distinct Respondent_ID) from fact_survey_responses
-        where Tried_before = 'Yes') *100, 2) AS Respondent_Percentage
-from fact_survey_responses
-where Tried_before = 'Yes'
-group by Taste_experience
-
-UNION ALL
-
-select 'Reasons for Choosing Brands' as Category, Reasons_for_choosing_brands AS Subcategory,
-		round((count(distinct Respondent_ID)) /
-        (select count(distinct Respondent_ID)from fact_survey_responses)
-        * 100, 2) as Respondent_Percentage
-from fact_survey_responses
-where Reasons_for_choosing_brands IN ('Availability', 'Taste/flavor preference', 'Brand reputation', 'Effectiveness')
-group by Reasons_for_choosing_brands
-order by Category, Respondent_Percentage desc;
